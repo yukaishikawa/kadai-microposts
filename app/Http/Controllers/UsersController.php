@@ -62,5 +62,22 @@ class UsersController extends Controller
 
         return view('users.followers', $data);
     }
+    
+
+
+    public function like_micropost($id)
+    {
+        $user = User::find($id);
+        $like_micropost = $user->like_micropost()->paginate(10);
+
+        $data = [
+            'user' => $user,
+            'microposts' => $like_micropost,
+        ];
+
+        $data += $this->counts($user);
+
+        return view('users.favorite', $data);
+    }
 }
  
